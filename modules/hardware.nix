@@ -26,24 +26,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/2746cd70-c0b7-4e78-ad7b-6f41f376b669";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/4683-0FBF";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
-  };
-
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/3ec44de9-f131-494c-be47-91eece551a83"; }
-  ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
