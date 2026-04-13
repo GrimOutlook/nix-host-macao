@@ -12,19 +12,26 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+  boot = {
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "thunderbolt"
-    "vmd"
-    "nvme"
-    "usb_storage"
-    "sd_mod"
-    "rtsx_pci_sdmmc"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "thunderbolt"
+      "vmd"
+      "nvme"
+      "usb_storage"
+      "sd_mod"
+      "rtsx_pci_sdmmc"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+
+    # Reduce the selection time to 2 seconds.
+    # If this gets changed to `0` you can still access the selections by
+    # holding space during boot.
+    loader.timeout = 2;
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
