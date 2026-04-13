@@ -1,0 +1,3 @@
+{
+  host.bootloader.enable = true;
+}
