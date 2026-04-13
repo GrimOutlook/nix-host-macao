@@ -19,14 +19,14 @@ in
   #   plymouth.enable = true;
   # };
   #
-  # programs = {
-  #   gamescope = {
-  #     enable = true;
-  #     capSysNice = true;
-  #   };
-  #   steam.gamescopeSession.enable = true;
-  # };
-  #
+  programs = {
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    steam.gamescopeSession.enable = true;
+  };
+
   # # Gamescope Auto Boot from TTY
   # services = {
   #   xserver.enable = false; # Assuming no other Xserver needed
