@@ -1,3 +1,4 @@
+# WARN: This is what is causing the kernel panics at boot
 {
   config,
   lib,
