@@ -27,20 +27,20 @@ in
     steam.gamescopeSession.enable = true;
   };
 
-  # # Gamescope Auto Boot from TTY
-  # services = {
-  #   xserver.enable = false; # Assuming no other Xserver needed
-  #   getty.autologinUser = username;
-  #   greetd = {
-  #     enable = true;
-  #     settings = {
-  #       default_session = {
-  #         command = "${lib.getExe pkgs.gamescope} \
-  #           -W 3840 -H 2160 -r 144 -f -e --xwayland-count 2 -- \
-  #           steam -pipewire-dmabuf -gamepadui -steamdeck -steamos3 > /dev/null 2>&1";
-  #         user = username;
-  #       };
-  #     };
-  #   };
-  # };
+  # Gamescope Auto Boot from TTY
+  services = {
+    xserver.enable = false; # Assuming no other Xserver needed
+    getty.autologinUser = username;
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${lib.getExe pkgs.gamescope} \
+            -W 3840 -H 2160 -r 144 -f -e --xwayland-count 2 -- \
+            steam -pipewire-dmabuf -gamepadui -steamdeck -steamos3 > /dev/null 2>&1";
+          user = username;
+        };
+      };
+    };
+  };
 }
