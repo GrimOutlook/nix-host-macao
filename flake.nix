@@ -5,7 +5,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs =
@@ -24,7 +24,7 @@
         modules = [
           nix-config.nixosModules.default
         ]
-        ++ builtins.map (f: ./modules + "/${f}") (builtins.attrNames (builtins.readDir ./modules));
+        ++ builtins.map (f: ./modules + "/${f}") (builtins.filter (f: builtins.match ".*\\.nix" f != null) (builtins.attrNames (builtins.readDir ./modules)));
       };
     };
 }

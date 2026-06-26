@@ -38,7 +38,7 @@ in
           # Use 'journalctl -b -t gamescope' to see the logs for gamescope for
           # the current boot session
           command = ''
-            bash -c '${lib.getExe pkgs.gamescope} -W 3840 -H 2160 -r 144 -f -e --xwayland-count 2 -- steam -pipewire-dmabuf -gamepadui -steamdeck 2>&1 | systemd-cat -t gamescope'
+            bash -c '${lib.getExe pkgs.gamescope} -W 3840 -H 2160 -r 60 -f -e --xwayland-count 2 -- steam -pipewire-dmabuf -gamepadui -steamdeck 2>&1 | systemd-cat -t gamescope'
           '';
           user = username;
         };
