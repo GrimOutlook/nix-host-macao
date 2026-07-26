@@ -6,25 +6,17 @@
 
   outputs =
     inputs@{
-      self,
       nix-config,
-      nixpkgs,
       ...
     }:
-    {
-      nixosConfigurations.macao = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          nix-config.nixosModules.default
-        ]
-        ++ builtins.map (f: ./modules + "/${f}") (
-          builtins.filter (f: builtins.match ".*\\.nix" f != null) (
-            builtins.attrNames (builtins.readDir ./modules)
-          )
-        );
-      };
+    nix-config.lib.mkHost {
+      hostname = "macao";
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = builtins.map (f: ./modules + "/${f}") (
+        builtins.filter (f: builtins.match ".*\\.nix" f != null) (
+          builtins.attrNames (builtins.readDir ./modules)
+        )
+      );
     };
 }
