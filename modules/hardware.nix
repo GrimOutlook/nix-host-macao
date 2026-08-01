@@ -31,7 +31,11 @@
     # If this gets changed to `0` you can still access the selections by
     # holding space during boot.
     loader.timeout = 2;
-    loader.systemd-boot.configurationLimit = 3;
+    # Each generation costs ~215M of ESP because nixos-facter puts `nvidia` in
+    # `initrd.kernelModules` and `nvidia.ko` alone is 85M. GRUB stages every
+    # kernel it needs before pruning obsolete ones, so the peak is
+    # `configurationLimit + 1` generations -- 4 * 215M ~= 860M of the 5G ESP.
+    loader.grub.configurationLimit = 3;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

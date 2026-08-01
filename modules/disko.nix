@@ -9,10 +9,19 @@
       content = {
         type = "gpt";
         partitions = {
+          # NOTE: this describes the layout a *fresh* install should produce.
+          # The live disk differs: the 500M ESP was too small to hold even two
+          # generations (each costs ~215M, see `configurationLimit` in
+          # hardware.nix), so on 2026-08-01 it was grown to 5G in place by
+          # shrinking btrfs from the end and adding the new ESP after it. The
+          # original ESP was then deleted, leaving 500M stranded as unallocated
+          # space at the start of the disk and the partition order as
+          # p2 (btrfs), p3 (ESP). Mounts are by partlabel, so that ordering
+          # difference is immaterial at runtime; a reinstall restores this file.
           esp = {
             priority = 1;
             name = "ESP";
-            size = "500M";
+            size = "5G";
             type = "EF00";
             label = "NIXBOOT";
             content = {
